@@ -1,2 +1,2 @@
 # myblog
-flask as backend, fronted use jquery and bootstrap etc.
+flask as backend, frontend use jquery and bootstrap etc.
