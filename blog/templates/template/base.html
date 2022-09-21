@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>{% block title %}{% endblock %} - Blog</title>
+        {% include 'widgets/link.html' %}
+    </head>
+    <body>
+        {% include 'widgets/nav.html' %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

@@ -1,5 +1,6 @@
 import os
 import logging
+import datetime
 
 
 BASE_DIR = os.path.join(os.path.abspath(os.path.dirname(__name__)), 'instance')
@@ -14,6 +15,15 @@ API_VERSION = '/api/v1'
 SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.path.join(BASE_DIR, "blog.db")}'
 SQLALCHEMY_ECHO = False
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+# ============================== jwt ==============================
+# jwt插件配置
+JWT_SECRET_KEY = SECRET_KEY
+# token携带的位置，默认是headers
+JWT_TOKEN_LOCATION = ["headers"]
+# 过期时间
+JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(days=1)
 
 
 # ============================== log ==============================
@@ -68,6 +78,11 @@ LOGGING = {
             'level': logging.INFO,
             'propagate': False,
             'handlers': ['console', 'werkzeug_file']
+        },
+        'blog': {
+            'level': logging.DEBUG,
+            'propagate': False,
+            'handlers': ['console', 'file']
         }
     },
     'root': {

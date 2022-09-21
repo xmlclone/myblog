@@ -9,11 +9,11 @@ from sqlalchemy import Column, String, Integer, Text, DateTime
 db = SQLAlchemy()
 
 
-@click.command('init-db', help='初始化数据库')
+@click.command('init-db', help='Initialize DB.')
 def init_db():
     db.drop_all()
     db.create_all()
-    click.echo('数据库初始化完成')
+    click.echo('DB initialization completed.')
 
 def init_app(app: Flask):
     db.init_app(app)
@@ -24,6 +24,9 @@ class UserOrm(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(10), unique=True, nullable=False)
     password = Column(String(20), nullable=False)
+
+    def __str__(self):
+        return self.username
 
 class BlogOrm(db.Model):
     __tablename__ = 'blog_blog'

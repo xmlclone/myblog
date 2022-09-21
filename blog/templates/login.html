@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>{% block title %}Login{% endblock %}</title>
+        {% include 'widgets/link.html' %}
+
+        <style>
+            html, body {
+                height: 100%;
+            }
+
+            form {
+                max-width: 300px;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body class="d-flex justify-content-center align-items-center text-center bg-dark">
+        <form>
+            <div class="form-floating">
+                <input class="form-control" id="username" type="input" placeholder="username">
+                <label for="username">username</label>
+            </div>
+            <div class="form-floating mt-1">
+                <input class="form-control" id="password" type="password" placeholder="password">
+                <label for="password">password</label>
+            </div>
+            <button class="btn btn-primary w-100 mt-1" type="submit">Login</button>
+        </form>
+    </body>
+</html>
