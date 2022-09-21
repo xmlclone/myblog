@@ -3,10 +3,9 @@
 <html>
     <head>
         <title>{% block title %}{% endblock %} - Blog</title>
+        {% block style %}{% endblock %}
+        {% block script %}{% endblock %}
         {% include 'widgets/link.html' %}
     </head>
-    <body>
-        {% include 'widgets/nav.html' %}
-        {% block content %}{% endblock %}
-    </body>
+    {% block body %}{% endblock %}
 </html>

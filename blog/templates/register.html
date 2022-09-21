@@ -1,0 +1,38 @@
+{% extends 'widgets/base.html' %}
+
+{% block style %}
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    form {
+        max-width: 300px;
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block title %} Register {% endblock %}
+
+{% block body %}
+<body class="d-flex justify-content-center align-items-center text-center bg-dark">
+    <form>
+        <div class="form-floating">
+            <input class="form-control" id="username" type="input" placeholder="Username">
+            <label for="username">Username</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" id="password1" type="password" placeholder="Password">
+            <label for="password1">Password</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" id="password2" type="password" placeholder="Password">
+            <label for="password2">Password</label>
+        </div>
+        <!-- 如果type是submit，会自动提交表单，屏蔽onclick行为，有的浏览器默认type是submit，所以需要显示指定 -->
+        <button class="btn btn-primary w-100 my-1" type="button" onclick="register()">Register</button>
+        <p id="register-alter"></p>
+    </form>
+</body>
+{% endblock %}

@@ -31,7 +31,8 @@ LOGGING = {
     'version': 1,
     'formatters': {
         'console': {
-            'format': '%(asctime)s %(levelname)s %(name)s: %(message)s',
+            # 'format': '%(asctime)s %(levelname)s %(name)s : %(message)s',
+            'format': '%(asctime)s %(levelname)s %(name)s %(filename)s(%(lineno)d): %(message)s',
         },
         'file': {
             'format': '%(asctime)s %(levelname)s %(name)s %(filename)s(%(lineno)d): %(message)s',

@@ -19,6 +19,7 @@ def init_app(app: Flask):
     db.init_app(app)
     app.cli.add_command(init_db)
 
+
 class UserOrm(db.Model):
     __tablename__ = 'blog_user'
     id = Column(Integer, primary_key=True, autoincrement=True)

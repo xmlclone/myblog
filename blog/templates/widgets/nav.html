@@ -4,12 +4,9 @@
             <li><a class="nav-link px-2 text-secondary" href="/">Index</a></li>
             <li><a class="nav-link px-2 text-info" href="#">About</a></li>
         </ul>
-        {% if current_user.is_authenticated %}
-            <button class="btn bbtn-warning me-1">Logout</button>
-            <p> {{ current_user.username }} </p>
-        {% else %}
-            <button class="btn btn-outline-light me-1" onclick="redirect_login()">Login</button>
-            <button class="btn btn-warning">Register</button>
-        {% endif %}
+        <button class="btn btn-warning me-1">Logout</button>
+        <p> username </p>
+        <button class="btn btn-outline-light me-1" onclick="redirect_login()">Login</button>
+        <button class="btn btn-warning" onclick="redirect_resiger()">Sign up</button>
     </div>
 </div>

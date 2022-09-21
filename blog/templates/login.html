@@ -1,32 +1,33 @@
-<!DOCTYPE html>
+{% extends 'widgets/base.html' %}
 
-<html>
-    <head>
-        <title>{% block title %}Login{% endblock %}</title>
-        {% include 'widgets/link.html' %}
+{% block style %}
+<style>
+    html, body {
+        height: 100%;
+    }
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+    form {
+        max-width: 300px;
+        width: 100%;
+    }
+</style>
+{% endblock %}
 
-            form {
-                max-width: 300px;
-                width: 100%;
-            }
-        </style>
-    </head>
-    <body class="d-flex justify-content-center align-items-center text-center bg-dark">
-        <form>
-            <div class="form-floating">
-                <input class="form-control" id="username" type="input" placeholder="username">
-                <label for="username">username</label>
-            </div>
-            <div class="form-floating mt-1">
-                <input class="form-control" id="password" type="password" placeholder="password">
-                <label for="password">password</label>
-            </div>
-            <button class="btn btn-primary w-100 mt-1" type="submit">Login</button>
-        </form>
-    </body>
-</html>
+{% block title %} Login {% endblock %}
+
+{% block body %}
+<body class="d-flex justify-content-center align-items-center text-center bg-dark">
+    <form>
+        <div class="form-floating">
+            <input class="form-control" id="username" type="input" placeholder="Username">
+            <label for="username">Username</label>
+        </div>
+        <div class="form-floating mt-1">
+            <input class="form-control" id="password" type="password" placeholder="Password">
+            <label for="password">Password</label>
+        </div>
+        <button class="btn btn-primary w-100 my-1" type="button" onclick="login()">Login</button>
+        <p id="login-alter"></p>
+    </form>
+</body>
+{% endblock %}
