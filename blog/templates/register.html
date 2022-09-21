@@ -13,26 +13,70 @@
 </style>
 {% endblock %}
 
+{% block script %}
+<script>
+    function register() {
+        url = "{{ url_for('api.user') }}"
+        username = $('#username').val()
+        password1 = $('#password1').val()
+        password2 = $('#password2').val()
+        info = null
+        if (username.length < 4 || username.length > 20) {
+            info = '用户名长度必须在4-20之间'
+        }
+        if (password1.length < 6 || password1.length > 20) {
+            info = '密码长度必须在6-20之间'
+        }
+        if (password2.length < 6 || password2.length > 20) {
+            info = '密码长度必须在6-20之间'
+        }
+        if (password1 != password2) {
+            info = '两次输入密码不一致'
+        }
+        if (info != null) {
+            $("#alter").attr('class', 'text-warning')
+            $("#alter").text(info)
+            return
+        }
+        axios.post(
+            url,
+            {username, password: password1}
+        ).then(resp => {
+            if (resp.data.code != 0) {
+                $("#alter").attr('class', 'text-warning')
+                $("#alter").text(resp.data.message)
+            } else {
+                $("#alter").attr('class', 'text-warning')
+                $("#alter").text('注册成功，稍后跳转到登录页面')
+                setTimeout(()=>{
+                    location.href = "{{ url_for('login') }}"
+                }, 1000)
+            }
+        })
+    }
+</script>
+{% endblock %}
+
 {% block title %} Register {% endblock %}
 
 {% block body %}
 <body class="d-flex justify-content-center align-items-center text-center bg-dark">
     <form>
         <div class="form-floating">
-            <input class="form-control" id="username" type="input" placeholder="Username">
-            <label for="username">Username</label>
+            <input class="form-control" id="username" type="input" placeholder="用户名">
+            <label for="username">用户名</label>
         </div>
         <div class="form-floating mt-1">
-            <input class="form-control" id="password1" type="password" placeholder="Password">
-            <label for="password1">Password</label>
+            <input class="form-control" id="password1" type="password" placeholder="密码">
+            <label for="password1">密码</label>
         </div>
         <div class="form-floating mt-1">
-            <input class="form-control" id="password2" type="password" placeholder="Password">
-            <label for="password2">Password</label>
+            <input class="form-control" id="password2" type="password" placeholder="再次输入密码">
+            <label for="password2">再次输入密码</label>
         </div>
         <!-- 如果type是submit，会自动提交表单，屏蔽onclick行为，有的浏览器默认type是submit，所以需要显示指定 -->
-        <button class="btn btn-primary w-100 my-1" type="button" onclick="register()">Register</button>
-        <p id="register-alter"></p>
+        <button class="btn btn-primary w-100 my-1" type="button" onclick="register()">注册</button>
+        <p id="alter"></p>
     </form>
 </body>
 {% endblock %}

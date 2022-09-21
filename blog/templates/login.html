@@ -13,21 +13,60 @@
 </style>
 {% endblock %}
 
+{% block script %}
+<script>
+    function login() {
+        url = "{{ url_for('api.token') }}"
+        username = $('#username').val()
+        password = $('#password').val()
+        info = null
+        if (username.length < 4 || username.length > 20) {
+            info = '用户名长度必须在4-20之间'
+        }
+        if (password.length < 6 || password.length > 20) {
+            info = '密码长度必须在6-20之间'
+        }
+        if (info != null) {
+            $("#alter").attr('class', 'text-warning')
+            $("#alter").text(info)
+            return
+        }
+        axios.post(
+            url,
+            {username, password}
+        ).then(resp => {
+            if (resp.data.code != 0) {
+                $("#alter").attr('class', 'text-warning')
+                $("#alter").text(resp.data.message)
+            } else {
+                $("#alter").attr('class', 'text-warning')
+                $("#alter").text('登录成功，稍后跳转到首页')
+                sessionStorage.setItem('token', resp.data.token)
+                setTimeout(()=>{
+                    location.href = "{{ url_for('index') }}"
+                }, 1000)
+            }
+        })
+    }
+</script>
+{% endblock %}
+
 {% block title %} Login {% endblock %}
 
 {% block body %}
 <body class="d-flex justify-content-center align-items-center text-center bg-dark">
     <form>
+        {{ form.csrf_token }}
         <div class="form-floating">
-            <input class="form-control" id="username" type="input" placeholder="Username">
-            <label for="username">Username</label>
+            {{ form.username(class="form-control", placeholder="用户名") }}
+            <label for="username">{{ form.username.label }}</label>
         </div>
-        <div class="form-floating mt-1">
-            <input class="form-control" id="password" type="password" placeholder="Password">
-            <label for="password">Password</label>
+        <div class="form-floating">
+            {{ form.password(class="form-control mt-1", placeholder="密码") }}
+            <label for="password">{{ form.password.label }}</label>
         </div>
-        <button class="btn btn-primary w-100 my-1" type="button" onclick="login()">Login</button>
-        <p id="login-alter"></p>
+        {{ form.submit(class="btn btn-primary w-100 my-1", type="button", onclick="login()") }}
+        <p id="alter"></p>
     </form>
 </body>
 {% endblock %}

@@ -8,8 +8,9 @@ BASE_DIR = os.path.join(os.path.abspath(os.path.dirname(__name__)), 'instance')
 
 # ============================== basic config ==============================
 SECRET_KEY = 'dev'
+API_URL = 'http://127.0.0.1:5000'
 API_VERSION = '/api/v1'
-
+API_TOKEN = '/token'
 
 # ============================== DB ==============================
 SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.path.join(BASE_DIR, "blog.db")}'
@@ -17,8 +18,13 @@ SQLALCHEMY_ECHO = False
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
+# ============================== wtf ==============================
+# wtf插件配置，不配置默认使用SECRET_KEY
+WTF_CSRF_SECRET_KEY = SECRET_KEY
+
+
 # ============================== jwt ==============================
-# jwt插件配置
+# jwt插件配置，不配置默认使用SECRET_KEY
 JWT_SECRET_KEY = SECRET_KEY
 # token携带的位置，默认是headers
 JWT_TOKEN_LOCATION = ["headers"]

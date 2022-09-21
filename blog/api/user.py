@@ -1,6 +1,6 @@
 from sqlite3 import IntegrityError
 from flask import request, abort
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, current_user
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import and_
@@ -32,7 +32,13 @@ class TokenResource(Resource):
     def __init__(self) -> None:
         self.logger = get_logger(TokenResource.__name__)
 
+    @jwt_required()
     def get(self):
+        return {
+            'username': current_user.username
+        }
+
+    def post(self):
         req = UserRequest.parse_obj(request.json)
         self.logger.debug(req)
         user: UserOrm = UserOrm.query.filter(and_(UserOrm.username==req.username, UserOrm.password==req.password)).first()

@@ -1,19 +1,25 @@
 {% extends 'widgets/base.html' %}
 
+{% block script %}
+<script>
+    // sessionStorage:  https://blog.csdn.net/weixin_30613727/article/details/95240255
+    $(function() {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem("token")}`
+        token = sessionStorage.getItem('token')
+        axios.get("{{ url_for('api.token') }}").then(resp => {
+            $("#login").hide()
+            $("#register").hide()
+            $("#username").text(resp.data.username).show()
+        }).catch(err => {
+            logout_helper()
+        })
+    })
+</script>
+{% endblock %}
+
 {% block body %}
 <body>
-    <div class="bg-dark text-white p-3 mb-1">
-        <div class="d-flex">
-            <ul class="nav me-auto">
-                <li><a class="nav-link px-2 text-secondary" href="/">Index</a></li>
-                <li><a class="nav-link px-2 text-info" href="#">About</a></li>
-            </ul>
-            <button class="btn btn-warning me-1">Logout</button>
-            <p> username </p>
-            <button class="btn btn-outline-light me-1" onclick="redirect_login()">Login</button>
-            <button class="btn btn-warning" onclick="redirect_resiger()">Sign up</button>
-        </div>
-    </div>
+    {% include 'widgets/nav.html' %}
     {% block content %} {% endblock %}
 </body>
 {% endblock %}
