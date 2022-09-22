@@ -25,7 +25,7 @@ class BlogResource(Resource):
         return resp
 
     @jwt_required()
-    def post(self):
+    def post(self, blog_id=None):
         title = request.json['title']
         body = request.json['body']
         try:
@@ -35,4 +35,16 @@ class BlogResource(Resource):
             return StatusResponse(code=Code.FAIL, message=e).dict()
         else:
             return StatusResponse().dict()
+
+    # @jwt_required(True)
+    def put(self, blog_id=None):
+        content = request.json
+        self.logger.debug(content)
+        if 'like' in content:
+            try:
+                BlogOrm.query.filter(BlogOrm.id==blog_id).update({BlogOrm.like: BlogOrm.like + 1})
+                db.session.commit()
+            except Exception as e:
+                return StatusResponse(code=Code.FAIL, message=e).dict()
+        return StatusResponse().dict()
         
