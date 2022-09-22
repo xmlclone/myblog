@@ -56,16 +56,15 @@
 {% block body %}
 <body class="d-flex justify-content-center align-items-center text-center bg-dark">
     <form>
-        {{ form.csrf_token }}
         <div class="form-floating">
-            {{ form.username(class="form-control", placeholder="用户名") }}
-            <label for="username">{{ form.username.label }}</label>
+            <input class="form-control" id="username" type="input" placeholder="用户名">
+            <label for="username">用户名</label>
         </div>
         <div class="form-floating">
-            {{ form.password(class="form-control mt-1", placeholder="密码") }}
-            <label for="password">{{ form.password.label }}</label>
+            <input class="form-control mt-1" id="password" type="password" placeholder="密码">
+            <label for="password">密码</label>
         </div>
-        {{ form.submit(class="btn btn-primary w-100 my-1", type="button", onclick="login()") }}
+        <button class="btn btn-primary w-100 my-1" type="button" onclick="login()">登录</button>
         <p id="alter"></p>
     </form>
 </body>

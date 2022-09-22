@@ -11,6 +11,7 @@ function logout_helper() {
     $("#register").show()
     $("#username").show()
     $("#logout").hide()
+    $("#new").hide()
     sessionStorage.clear()
 }
 

@@ -3,11 +3,15 @@ import typing
 from pydantic import BaseModel, validator
 from enum import Enum
 
+from .models import BlogModel
+
 
 class Code(Enum):
     SUCCESS = 0
+    FAIL = 1
     AUTHFAIL = 406
     CONFLICT = 409
+    UNPROCESSABLE_ENTITY = 422
     
 
 class Model(BaseModel):
@@ -26,5 +30,7 @@ class StatusResponse(Model):
     ''''''
 
 class TokenResponse(Model):
-    ''''''
     token: str
+
+class BlogResponse(Model):
+    blogs: typing.List[BlogModel] = []

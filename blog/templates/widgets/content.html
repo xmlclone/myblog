@@ -1,6 +1,6 @@
 {% extends 'widgets/base.html' %}
 
-{% block script %}
+{% block script5 %}
 <script>
     // sessionStorage:  https://blog.csdn.net/weixin_30613727/article/details/95240255
     $(function() {
@@ -10,6 +10,7 @@
             $("#login").hide()
             $("#register").hide()
             $("#username").text(resp.data.username).show()
+            $("#new").show()
         }).catch(err => {
             logout_helper()
         })

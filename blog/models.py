@@ -1,9 +1,11 @@
+import typing
 import click
 
 from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String, Integer, Text, DateTime
+from pydantic import BaseModel, validator
 
 
 db = SQLAlchemy()
@@ -38,3 +40,20 @@ class BlogOrm(db.Model):
     created = Column(DateTime, default=datetime.utcnow)
     like = Column(Integer, default=0)
     star = Column(Integer, default=0)
+
+class BlogModel(BaseModel):
+    id: int
+    author_id: int
+    title: str
+    body: typing.Optional[str]
+    created: typing.Optional[datetime] = datetime.utcnow()
+    like: int = 0
+    star: int = 0
+    author_name: typing.Optional[str]
+
+    class Config:
+        orm_mode = True
+
+    @validator('created')
+    def created_validator(cls, created: datetime):
+        return created.strftime("%Y-%m-%d %H:%M:%S")
