@@ -42,15 +42,29 @@ class BlogResource(Resource):
         else:
             return StatusResponse().dict()
 
-    # @jwt_required(True)
+    @jwt_required(True)
     def put(self, blog_id=None):
         content = request.json
         self.logger.debug(content)
-        if 'like' in content:
-            try:
+        try:
+            if 'like' in content:
                 BlogOrm.query.filter(BlogOrm.id==blog_id).update({BlogOrm.like: BlogOrm.like + 1})
-                db.session.commit()
-            except Exception as e:
-                return StatusResponse(code=Code.FAIL, message=e).dict()
+            if 'title' in content:
+                BlogOrm.query.filter(BlogOrm.id==blog_id).update({BlogOrm.title: content['title']})
+            if 'body' in content:
+                BlogOrm.query.filter(BlogOrm.id==blog_id).update({BlogOrm.body: content['body']})
+            db.session.commit()
+        except Exception as e:
+            return StatusResponse(code=Code.FAIL, message=e).dict()
+        return StatusResponse().dict()
+
+    @jwt_required()
+    def delete(self, blog_id=None):
+        self.logger.debug(f'delete blog id: {blog_id}')
+        try:
+            BlogOrm.query.filter(BlogOrm.id==blog_id).delete()
+            db.session.commit()
+        except Exception as e:
+            return StatusResponse(code=Code.FAIL, message=e).dict()
         return StatusResponse().dict()
         

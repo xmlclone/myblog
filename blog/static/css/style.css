@@ -9,5 +9,5 @@ a {
 
 /* 文章标题后字体，比如编辑、点赞等 */
 .after-title {
-    font-size: x-small;
+    font-size: small;
 }

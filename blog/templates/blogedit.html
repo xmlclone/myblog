@@ -3,21 +3,19 @@
 {% block title %}{{ oper_type }}{% endblock %}
 
 {% block onload %}
-    /*
     blog_id = "{{blog_id}}"
-    body = null
+    console.log(blog_id)
     if (blog_id != "None") {
         axios.get(
             "{{ url_for('api.blog', blog_id=blog_id) }}"
         ).then(resp => {
             $("#title").val(resp.data.blogs[0].title)
-            body = resp.data.blogs[0].body
+            $("#body").val(resp.data.blogs[0].body)
         }).catch (err => {
             alert(err)
             location.hrep = '/'
         })
-    }*/
-    console.log('onload')
+    }
     var editor = editormd("editor", {
         path : "../static/editor.md/lib/",
         placeholder: "开始精彩写作..."

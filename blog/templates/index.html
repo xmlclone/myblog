@@ -12,24 +12,13 @@
         "{{ url_for('api.blog') }}"
     ).then(resp => {
         for (b of resp.data.blogs) {
-            if (b.editable) {
-                $("#blog").append(
-                `<div class="d-flex">
-                    <div class="col-12 mb-1 border-top pt-1">
-                        <a class="h3" href=/blog/view/${b.id}>${b.title}</a>
-                        <a class="ms-1 text-info after-title" href=/blog/update/${b.id}?jwt=${jwt}>编辑(暂不可用)</a>
-                        <p class="text-secondary text-sm"><small>by ${b.author_name} on ${b.created}</small></p>
-                    </div>
-                </div>`)
-            } else {
-                $("#blog").append(
-                `<div class="d-flex">
-                    <div class="col-12 mb-1 border-top pt-1">
-                        <a class="h3" href=/blog/view/${b.id}>${b.title}</a>
-                        <p class="text-secondary text-sm"><small>by ${b.author_name} on ${b.created}</small></p>
-                    </div>
-                </div>`)
-            }
+            $("#blog").append(
+            `<div class="d-flex">
+                <div class="col-12 mb-1 border-top pt-1">
+                    <a class="h3" href=/blog/view/${b.id}>${b.title}</a>
+                    <p class="text-secondary text-sm"><small>${b.author_name} 发表于 ${b.created}</small></p>
+                </div>
+            </div>`)
         }
         $("#blog").append("<hr>")
     })
