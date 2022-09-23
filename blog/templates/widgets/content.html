@@ -4,16 +4,21 @@
 <script>
     // sessionStorage:  https://blog.csdn.net/weixin_30613727/article/details/95240255
     $(function() {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem("token")}`
-        token = sessionStorage.getItem('token')
-        axios.get("{{ url_for('api.token') }}").then(resp => {
-            $("#login").hide()
-            $("#register").hide()
-            $("#username").text(resp.data.username).show()
-            $("#new").show()
-        }).catch(err => {
+        jwt = sessionStorage.getItem('token')
+        if (jwt) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
+            axios.get("{{ url_for('api.token') }}").then(resp => {
+                $("#login").hide()
+                $("#register").hide()
+                $("#username").text(resp.data.username).show()
+                $("#new").show()
+            }).catch(err => {
+                logout_helper()
+            })
+        } else {
             logout_helper()
-        })
+        }
+        {% block onload %} {% endblock %}
     })
 </script>
 {% endblock %}
@@ -21,6 +26,6 @@
 {% block body %}
 <body>
     {% include 'widgets/nav.html' %}
-    <div class="container mt-3">{% block content %} {% endblock %}</div>
+    <div class="container mt-3" style="height:100%">{% block content %} {% endblock %}</div>
 </body>
 {% endblock %}

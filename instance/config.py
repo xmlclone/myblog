@@ -14,7 +14,7 @@ API_TOKEN = '/token'
 
 # ============================== DB ==============================
 SQLALCHEMY_DATABASE_URI = f'sqlite:///{os.path.join(BASE_DIR, "blog.db")}'
-SQLALCHEMY_ECHO = False
+# SQLALCHEMY_ECHO = True
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
@@ -27,6 +27,7 @@ WTF_CSRF_SECRET_KEY = SECRET_KEY
 # jwt插件配置，不配置默认使用SECRET_KEY
 JWT_SECRET_KEY = SECRET_KEY
 # token携带的位置，默认是headers
+# 另外可以使用@jwt_required(locations=["query_string"])选择jwt的位置，不受全局配置的影响
 JWT_TOKEN_LOCATION = ["headers"]
 # 过期时间
 JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(days=1)

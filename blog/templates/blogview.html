@@ -10,7 +10,8 @@
         ).then(resp => {
             blog = resp.data.blogs[0]
             $("#title").text(blog.title)
-            $("#body").text(blog.body)
+            //$("#body").text(blog.body)
+            editormd.markdownToHTML("body", {markdown: blog.body})
             $("#like").text(`点赞(${blog.like})`)
             $("#star").text(`收藏(${blog.star})`)
             $("#meta").text(`${blog.author_name} 发表于 ${blog.created}`)
@@ -32,7 +33,11 @@
             if (resp.data.code != 0) {
                 console.log('点赞失败')
             } else {
-                init()
+                axios.get(
+                    "{{ url_for('api.blog', blog_id=blog_id) }}"
+                ).then(resp => {
+                    $("#like").text(`点赞(${resp.data.blogs[0].like})`)
+                })
             }
         })
     }
@@ -43,7 +48,7 @@
 <div class="d-flex border-bottom">
     <h1 class="h1 my-auto" id="title"></h1>
     <div>
-        <ul class="navbar-nav" style="font-size:x-small">
+        <ul class="navbar-nav after-title">
             <li><a class="nav-link p-0" href="#" id="like" onclick="like()">点赞(0)</a></li>
             <li><a class="nav-link p-0" style="color:gray">收藏(0)</a></li>
             <li><a class="nav-link p-0" style="color:gray">关注(0)</a></li>
@@ -53,7 +58,8 @@
 <div>
     <p class="text-secondary mt-2 bg-light" id="meta"></p>
 </div>
-<div>
-    <p class="col-12 text-dark pt-2" id="body"></p>
+<div id="body">
+    <!-- Server-side output Markdown text -->
+    <textarea style="display:none;">### Hello world!</textarea>             
 </div>
 {% endblock %}

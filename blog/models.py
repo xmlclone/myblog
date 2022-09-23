@@ -40,6 +40,8 @@ class BlogOrm(db.Model):
     created = Column(DateTime, default=datetime.utcnow)
     like = Column(Integer, default=0)
     star = Column(Integer, default=0)
+    format_body = Column(Text)
+    format_type = Column(Integer)
 
 class BlogModel(BaseModel):
     id: int
@@ -49,7 +51,10 @@ class BlogModel(BaseModel):
     created: typing.Optional[datetime] = datetime.utcnow()
     like: int = 0
     star: int = 0
+    format_body : typing.Optional[str]
+    format_type: typing.Optional[int]
     author_name: typing.Optional[str]
+    editable: typing.Optional[bool] = False
 
     class Config:
         orm_mode = True

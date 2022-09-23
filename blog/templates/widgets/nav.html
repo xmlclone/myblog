@@ -5,12 +5,12 @@
             <li><a class="nav-link px-2 text-info" href="#">About</a></li>
         </ul>
         <form>
-            <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+            <input type="search" class="form-control form-control-dark" placeholder="Search...(暂不可用)" aria-label="Search">
         </form>
         <ul class="nav mx-2">
             <li><a class="nav-link px-2 text-info" href="/" id="username"></a></li>
         </ul>
-        <button class="btn btn-success me-1" id="new"><i class="fa fa-newspaper-o" aria-hidden="true"></i>新建</button>
+        <button class="btn btn-success me-1" id="new" onclick="new_blog()"><i class="fa fa-newspaper-o" aria-hidden="true"></i>新建</button>
         <button class="btn btn-warning me-1" onclick="logout()" id="logout">退出</button>
         <a class="btn btn-outline-light me-1" onclick="redirect_login()" id="login">登录</a>
         <a class="btn btn-warning me-1" onclick="redirect_resiger()" id="register">注册</a>

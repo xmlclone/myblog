@@ -30,4 +30,6 @@ def init_app(app: Flask):
     api.add_resource(UserResource, f'{app.config["API_VERSION"]}/user', endpoint='api.user')
     api.add_resource(TokenResource, f'{app.config["API_VERSION"]}/token', endpoint='api.token')
     api.add_resource(BlogResource, f'{app.config["API_VERSION"]}/blog', f'{app.config["API_VERSION"]}/blog/<int:blog_id>', endpoint='api.blog')
-    jwt.init_app(app)
+    # add_context_processor参数默认是False，如果需要在jinja的模板里面使用current_user，必须设置此值为True
+    # 但是所有通过jinja渲染的视图，必须有jwt_required修饰，不管是否需要jwt认证，都需要
+    jwt.init_app(app, add_context_processor=False)
