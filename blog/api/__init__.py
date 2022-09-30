@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 
 from blog.models import UserOrm
 from blog.log import get_logger
+from blog.respbody import StatusResponse, Code
 
 from .user import UserResource, TokenResource
 from .blog import BlogResource
@@ -24,6 +25,12 @@ def user_lookup_cb(_jwt_header, jwt_data):
     user = UserOrm.query.filter(UserOrm.username==identity).first()
     logger.debug(f'identity: {identity}, user: {user}')
     return user
+
+# 当一个endpoint被jwt_required修饰并且时
+# 注册自己的jwt未提供的响应函数,替换jwt提供的默认函数
+@jwt.unauthorized_loader
+def no_jwt_cb(reason):
+    return StatusResponse(code=Code.UNAUTHORIZED, message=reason).dict()
 
 def init_app(app: Flask):
     api = Api(app)

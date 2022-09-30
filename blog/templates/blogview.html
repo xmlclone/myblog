@@ -38,8 +38,11 @@
             "{{ url_for('api.blog', blog_id=blog_id) }}",
             {like: 1}
         ).then(resp => {
-            if (resp.data.code != 0) {
-                console.log('点赞失败')
+            if (resp.data.code == 401) {
+                alert('请先登录')
+            }
+            else if (resp.data.code != 0) {
+                alert('点赞失败: ' + resp.data.message)
             } else {
                 axios.get(
                     "{{ url_for('api.blog', blog_id=blog_id) }}"

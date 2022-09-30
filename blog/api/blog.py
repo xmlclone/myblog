@@ -1,4 +1,3 @@
-from os import abort
 from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required, current_user, get_jwt_identity
@@ -42,7 +41,7 @@ class BlogResource(Resource):
         else:
             return StatusResponse().dict()
 
-    @jwt_required(True)
+    @jwt_required()
     def put(self, blog_id=None):
         content = request.json
         self.logger.debug(content)

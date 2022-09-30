@@ -7,12 +7,13 @@ from .models import BlogModel
 
 
 class Code(Enum):
+    # 大部分可参考: from http.client import UNAUTHORIZED
     SUCCESS = 0
     FAIL = 1
     AUTHFAIL = 406
     CONFLICT = 409
+    UNAUTHORIZED = 401
     UNPROCESSABLE_ENTITY = 422
-    
 
 class Model(BaseModel):
     '''
